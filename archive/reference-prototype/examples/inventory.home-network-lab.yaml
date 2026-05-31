@@ -1,0 +1,68 @@
+# Reference layout for https://github.com/.../home-network-lab
+# Future: load this instead of hardcoded classify.py defaults.
+
+expected_toplevel:
+  - internal-docs
+  - mikrotik
+  - kubernetes
+  - proxmox
+  - services
+  - tests
+  - archive
+  - .cursor
+  - tools
+
+optional_toplevel:
+  - tools
+  - secrets
+
+deprecated_toplevel:
+  - backups
+
+domain_prefixes:
+  - prefix: ".git/"
+    domain: dot_git
+  - prefix: ".cursor/"
+    domain: cursor_meta
+  - prefix: mikrotik/
+    domain: mikrotik
+  - prefix: kubernetes/
+    domain: kubernetes
+  - prefix: proxmox/
+    domain: proxmox
+  - prefix: services/
+    domain: services
+  - prefix: proxmox/vms/windows-server/
+    domain: windows_server
+  - prefix: internal-docs/
+    domain: internal_docs
+  - prefix: archive/
+    domain: archive_global
+  - prefix: tests/
+    domain: tests
+  - prefix: tools/
+    domain: hub_tools
+
+# legacy_auto() today only flags kubernetes/archive/ (not root archive/)
+legacy_prefixes_active:
+  - kubernetes/archive/
+
+sensitive_glob_patterns:
+  - "*.env"
+  - "*.env.local"
+  - "*credentials*"
+  - "*password*"
+  - "*.key"
+  - "*.pem"
+  - "*.crt"
+  - "*.cert"
+  - kubeconfig*
+  - "*.kubeconfig"
+  - .k8s-admin-pass
+  - .mcp-credentials*
+  - "**/htpasswd"
+  - id_rsa*
+  - id_ed25519*
+  - secrets/**
+  - "**/vault-backup/**"
+  - .kube/config

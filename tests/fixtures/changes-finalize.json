@@ -1,0 +1,11 @@
+{
+  "events": [
+    {
+      "title": "Update alpha readme",
+      "summary": "Test finalize fixture for mini-lab staging.",
+      "paths": [
+        "alpha/readme.md"
+      ]
+    }
+  ]
+}
