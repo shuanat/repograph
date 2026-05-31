@@ -1,0 +1,41 @@
+# Repograph config for the repograph product repo (dogfooding).
+
+domains:
+  src/: src
+  tests/: tests
+  docs/: docs
+  scripts/: scripts
+  .planning/: planning
+  archive/: archive
+  .github/: github
+
+ignore:
+  - .repograph/**
+  - .git/**
+  - .cursor/**
+  - .venv/**
+  - .pytest_cache/**
+  - "**/__pycache__/**"
+  - __pycache__/**
+  - archive/reference-prototype/**
+
+sensitive_globs:
+  - "*.env"
+  - "*.env.*"
+  - "**/.env"
+  - "**/*credentials*"
+  - "**/*secret*"
+
+expected_toplevel:
+  - src
+  - tests
+  - docs
+  - scripts
+  - .planning
+  - archive
+  - .github
+
+vocab: []
+
+semantic:
+  embedding_model: BAAI/bge-small-en-v1.5
