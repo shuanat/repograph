@@ -1,0 +1,69 @@
+---
+description: When and in what order to use Repograph in this repository
+alwaysApply: true
+---
+
+# Repograph agent workflow
+
+This repository **dogfoods** Repograph. Canonical store: `.repograph/db.sqlite`. Snapshot: `.repograph/repograph.md` (regenerate only via `export`). Config: `.repograph/repograph.yaml`.
+
+Run commands from the repo root; prefer `uv run repograph …`.
+
+## When to use Repograph
+
+| Situation                                     | Action                                                           |
+| --------------------------------------------- | ---------------------------------------------------------------- |
+| New session / unfamiliar repo context         | Read `.repograph/repograph.md`; run `agent-guide` if needed      |
+| Need structure map, issues, domains           | Use `repograph.md` or `semantic query` — not whole-tree grep     |
+| Editing `src/`, `tests/`, `docs/`             | After a meaningful edit block — change journal (see cycle below) |
+| Changing `repograph.yaml` or directory layout | `config apply` → `scan` or `refresh` → `export`                  |
+| “Where is topic X in this project?”           | `semantic query "…" . --limit 5` (after `semantic rebuild`)      |
+| Environment uncertainty                       | `doctor`                                                         |
+
+Hooks run **`changes ingest`** then **`changes status`** on `sessionStart` / `beforeSubmitPrompt` — warn-only by default (`--strict` is opt-in). Watch stderr.
+
+## Default sequence
+
+### 1. Session start
+
+1. `uv run repograph agent-guide` (once if playbook not in context).
+2. Read `.repograph/repograph.md`.
+3. If staging non-empty: `changes prepare` or plan `finalize`.
+
+### 2. After meaningful edits
+
+```
+changes ingest .
+→ changes prepare .
+→ changes finalize . --file <events.json>
+→ export .
+```
+
+Use `--no-semantic-rebuild` on finalize for fast loops.
+
+### 3. After structure or config changes
+
+```
+config apply .
+→ scan .   # or refresh .
+→ export .
+```
+
+### 4. Semantic search
+
+```
+semantic rebuild .
+semantic query "<question>" . --limit 5
+```
+
+## Do not
+
+- Hand-edit `.repograph/repograph.md`.
+- Grep the entire tree when `repograph.md` or `semantic query` suffices.
+
+## References
+
+- Agent entry point: `AGENTS.md`
+- Full workflow (humans): `docs/WORKFLOW.md`
+- Skill: `.cursor/skills/repograph/SKILL.md`
+- Hooks: `docs/cursor/INSTALL.md`

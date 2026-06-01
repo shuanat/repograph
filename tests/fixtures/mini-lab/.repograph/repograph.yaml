@@ -1,0 +1,21 @@
+domains:
+  alpha/: alpha
+  beta/: beta
+  docs/: docs
+  mikrotik/: mikrotik
+  unexpected-dir/: unexpected-dir
+ignore:
+- .repograph/**
+sensitive_globs:
+- '*.env'
+- '*.env.*'
+- '**/.env'
+- '**/*credentials*'
+- '**/*secret*'
+expected_toplevel:
+- alpha
+- beta
+- docs
+- mikrotik
+- unexpected-dir
+vocab: []
