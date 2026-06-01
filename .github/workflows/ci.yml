@@ -1,0 +1,48 @@
+# Cross-platform smoke: install, pytest, CLI help, doctor (D-20, D-21).
+# No --strict on doctor; no ONNX model on runners.
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+env:
+  NO_COLOR: "1"
+  FORCE_COLOR: "0"
+  PYTHONUTF8: "1"
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+      - run: uv sync --locked
+      - name: Documentation link gate
+        run: uv run pytest tests/test_doc_links.py -q
+      - run: uv run pytest -q
+      - run: uv run repograph --help
+      - run: uv run repograph agent-guide
+      - run: uv run repograph doctor
+      - name: Scan mini-lab fixture
+        working-directory: tests/fixtures/mini-lab
+        run: |
+          uv run repograph scan
+          uv run repograph config init
+          uv run repograph config apply
+          uv run repograph export
+          uv run repograph changes ingest
+          uv run repograph changes status
+          uv run repograph label vocab-apply -f ../../fixtures/label-vocab.json
+          # If CI adds changes finalize or label apply-batch, pass --no-semantic-rebuild
+          # so runners do not download ONNX embedding models (Phase 6 policy).
+          uv run repograph label export --limit 5

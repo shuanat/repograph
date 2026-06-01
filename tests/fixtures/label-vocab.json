@@ -1,0 +1,64 @@
+{
+  "entries": [
+    {
+      "kind": "belongs_to",
+      "code": "app",
+      "label": "Application",
+      "sort_order": 10
+    },
+    {
+      "kind": "belongs_to",
+      "code": "docs",
+      "label": "Documentation",
+      "sort_order": 20
+    },
+    {
+      "kind": "folder_kind",
+      "code": "source",
+      "label": "Source",
+      "sort_order": 10
+    },
+    {
+      "kind": "folder_kind",
+      "code": "docs_root",
+      "label": "Docs root",
+      "sort_order": 20
+    },
+    {
+      "kind": "file_kind",
+      "code": "readme",
+      "label": "Readme",
+      "sort_order": 10
+    },
+    {
+      "kind": "file_kind",
+      "code": "config",
+      "label": "Config",
+      "sort_order": 20
+    },
+    {
+      "kind": "lifecycle",
+      "code": "active",
+      "label": "Active",
+      "sort_order": 10
+    },
+    {
+      "kind": "operational_status",
+      "code": "in_use",
+      "label": "In use",
+      "sort_order": 10
+    },
+    {
+      "kind": "action_planned",
+      "code": "keep",
+      "label": "Keep",
+      "sort_order": 10
+    },
+    {
+      "kind": "action_planned",
+      "code": "none",
+      "label": "None",
+      "sort_order": 20
+    }
+  ]
+}

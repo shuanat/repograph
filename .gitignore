@@ -1,0 +1,29 @@
+﻿# Public release - GSD/SDLC never belongs on this remote
+.planning/
+.cursor/get-shit-done/
+.cursor/agents/
+.cursor/skills/gsd-*/
+.cursor/.gsd-profile
+.cursor/gsd-file-manifest.json
+gsd-local-patches/
+
+# Local Repograph runtime
+.repograph/db.sqlite
+.repograph/db.sqlite.tmp
+.repograph/db.sqlite-wal
+.repograph/db.sqlite-shm
+tests/fixtures/mini-lab/.repograph/
+
+# Legacy / local
+project-inventory.db*
+.inventory/
+batch-*.json
+labeled-batch-*.json
+project-inventory-summary.md
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.idea/
+.vscode/
