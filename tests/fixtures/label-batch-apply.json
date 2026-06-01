@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "path_norm": "README.md",
+      "purpose": "Project overview for mini-lab fixture.",
+      "belongs_to": "docs",
+      "file_kind": "readme",
+      "lifecycle": "active",
+      "operational_status": "in_use",
+      "action_planned": "keep",
+      "label_status": "labeled"
+    }
+  ]
+}

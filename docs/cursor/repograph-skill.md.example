@@ -1,0 +1,21 @@
+---
+name: repograph
+description: Run the Repograph agent playbook and change-journal workflow for this repo.
+---
+
+# Repograph agent skill
+
+Thin wrapper around **`repograph agent-guide`** (canonical playbook on stdout).
+
+## Workflow
+
+1. Run **`repograph agent-guide`** (or `uv run repograph agent-guide`) and follow the numbered steps: doctor → scan/refresh → config → label vocab → **changes ingest** → **changes status** → agent work → **changes finalize** → semantic → **export**.
+2. Optional: enable project hooks from [docs/cursor/](README.md) (`hooks.json.example` → `.cursor/hooks.json`) so ingest + warn-only status run on session start or before each prompt.
+3. Never edit **`.repograph/repograph.md`** by hand — regenerate with **`repograph export`** after finalize or scan.
+4. Label batches: see packaged **`docs/label-batch.md`** / `repograph label export` (not duplicated here).
+
+## Anti-patterns
+
+- Grepping the tree instead of `repograph semantic query` or export snapshot.
+- Skipping **changes finalize** while staging is non-empty (check `changes status`).
+- Calling **semantic rebuild** in session hooks (slow; ONNX download) — use finalize flags or manual rebuild when needed.
